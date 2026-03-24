@@ -1,0 +1,138 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Pro Athlete Grudziądz — Klub Lekkoatletyczny",
+  description = "Młodzieżowy Klub Sportowy Pro Athlete Grudziądz. Szkolimy utalentowaną młodzież w lekkiej atletyce — biegi, skoki, rzuty, wieloboje. Dołącz do nas!",
+} = Astro.props;
+
+const navLinks = [
+  { label: "O klubie", href: "#about" },
+  { label: "Osiągnięcia", href: "#achievements" },
+  { label: "Aktualności", href: "#news" },
+  { label: "Kontakt", href: "#contact" },
+];
+---
+
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>{title}</title>
+  </head>
+  <body class="bg-brand-bg text-brand-text font-body min-h-screen overflow-x-hidden">
+    <!-- ─── NAVBAR ─── -->
+    <nav
+      id="navbar"
+      class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-8 py-4 transition-all duration-400"
+    >
+      <a href="#" class="flex items-center gap-3">
+        <img
+          src="/images/logo.jpg"
+          alt="Logo Pro Athlete Grudziądz"
+          class="h-9 w-9 rounded object-cover"
+        />
+        <span class="font-heading font-bold text-base text-brand-text uppercase tracking-widest">
+          Pro Athlete
+        </span>
+      </a>
+
+      <!-- Desktop nav -->
+      <div class="hidden md:flex items-center gap-8">
+        {navLinks.map((l) => (
+          <a href={l.href} class="nav-link">{l.label}</a>
+        ))}
+        <a href="#contact" class="cta-btn !py-2.5 !px-6 !text-xs">Dołącz do nas</a>
+      </div>
+
+      <!-- Hamburger -->
+      <button
+        id="menu-toggle"
+        class="md:hidden flex flex-col gap-[5px] p-2 bg-transparent border-none cursor-pointer"
+        aria-label="Otwórz menu"
+      >
+        <span class="block w-6 h-0.5 bg-brand-green transition-all"></span>
+        <span class="block w-6 h-0.5 bg-brand-green transition-all"></span>
+        <span class="block w-6 h-0.5 bg-brand-green transition-all"></span>
+      </button>
+    </nav>
+
+    <!-- Mobile menu -->
+    <div
+      id="mobile-menu"
+      class="fixed inset-0 z-[999] flex flex-col items-center justify-center gap-8 bg-brand-bg/[0.97] hidden"
+    >
+      {navLinks.map((l) => (
+        <a
+          href={l.href}
+          class="mobile-nav-link text-brand-text no-underline font-heading text-3xl font-semibold uppercase tracking-[3px] hover:text-brand-green transition-colors"
+        >{l.label}</a>
+      ))}
+      <button
+        id="menu-close"
+        class="absolute top-6 right-6 bg-transparent border-none text-brand-green text-3xl cursor-pointer"
+        aria-label="Zamknij menu"
+      >&#10005;</button>
+    </div>
+
+    <slot />
+
+    <!-- ─── FOOTER ─── -->
+    <footer class="border-t border-brand-green/10 py-10 px-6 text-center">
+      <div class="font-heading font-bold text-lg text-brand-green uppercase tracking-[3px] mb-2">
+        Pro Athlete Grudziądz
+      </div>
+      <div class="text-xs text-brand-muted leading-relaxed">
+        Klub Sportowy · Sekcja Lekkiej Atletyki · Grudziądz
+        <br />
+        &copy; {new Date().getFullYear()} Pro Athlete Grudziądz. Wszelkie prawa zastrzeżone.
+      </div>
+    </footer>
+
+    <script>
+      // Navbar scroll effect
+      const navbar = document.getElementById("navbar");
+      window.addEventListener("scroll", () => {
+        if (!navbar) return;
+        if (window.scrollY > 50) {
+          navbar.style.background = "rgba(10, 10, 10, 0.95)";
+          navbar.style.backdropFilter = "blur(12px)";
+          navbar.style.borderBottom = "1px solid rgba(107, 240, 64, 0.1)";
+        } else {
+          navbar.style.background = "transparent";
+          navbar.style.backdropFilter = "none";
+          navbar.style.borderBottom = "none";
+        }
+      }, { passive: true });
+
+      // Mobile menu
+      const menuToggle = document.getElementById("menu-toggle");
+      const menuClose = document.getElementById("menu-close");
+      const mobileMenu = document.getElementById("mobile-menu");
+
+      menuToggle?.addEventListener("click", () => {
+        mobileMenu?.classList.remove("hidden");
+      });
+      menuClose?.addEventListener("click", () => {
+        mobileMenu?.classList.add("hidden");
+      });
+      mobileMenu?.querySelectorAll(".mobile-nav-link").forEach((link) => {
+        link.addEventListener("click", () => {
+          mobileMenu?.classList.add("hidden");
+        });
+      });
+    </script>
+  </body>
+</html>

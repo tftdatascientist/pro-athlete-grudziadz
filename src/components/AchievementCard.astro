@@ -1,0 +1,24 @@
+---
+interface Props {
+  icon: string;
+  name: string;
+  result: string;
+  competition: string;
+  delay?: string;
+}
+
+const { icon, name, result, competition, delay = "0.1s" } = Astro.props;
+---
+
+<div
+  class="relative overflow-hidden rounded-xl p-6 animate-slide-up"
+  style={`background: linear-gradient(135deg, #1A1A1A, #111111); border: 1px solid rgba(107, 240, 64, 0.15); animation-delay: ${delay};`}
+>
+  <!-- Top accent line -->
+  <div class="absolute top-0 left-0 right-0 h-[3px]" style="background: linear-gradient(90deg, transparent, #6BF040, transparent);"></div>
+
+  <div class="text-3xl mb-3">{icon}</div>
+  <div class="font-heading text-lg font-semibold text-brand-green uppercase mb-1">{name}</div>
+  <div class="font-body text-[15px] text-brand-text font-semibold mb-1">{result}</div>
+  <div class="font-body text-[13px] text-brand-muted">{competition}</div>
+</div>
