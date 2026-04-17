@@ -1,16 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import SectionTitle from "../components/SectionTitle.astro";
-import AchievementCard from "../components/AchievementCard.astro";
 import "../styles/global.css";
-
-const disciplines = [
-  "Biegi sprinterskie",
-  "Biegi średniodystansowe",
-  "Skoki",
-  "Rzuty",
-  "Wieloboje",
-];
 
 const stats = [
   { value: "20+", label: "Zawodników" },
@@ -18,154 +8,190 @@ const stats = [
   { value: "15+", label: "Medali" },
   { value: "4", label: "Kategorie wiekowe" },
 ];
+
+const disciplines = [
+  { name: "Biegi sprinterskie", detail: "60m, 100m, 200m" },
+  { name: "Biegi średniodystansowe", detail: "400m, 800m, 1500m" },
+  { name: "Skoki", detail: "w dal, wzwyż" },
+  { name: "Rzuty", detail: "oszczep, kula, dysk" },
+  { name: "Wieloboje lekkoatletyczne", detail: "Wszechstronne przygotowanie startowe" },
+];
+
+const achievements = [
+  {
+    icon: "🥈",
+    name: "Andrzej Rogiewicz",
+    result: "2. miejsce Mistrzostw Polski",
+    competition: "Lekkoatletyka · Stypendysta miasta Grudziądz",
+  },
+  {
+    icon: "🏅",
+    name: "Krzysztof Mira",
+    result: "Nagrodzony Działacz Sportowy",
+    competition: "Gala Sportu · Grudziądz 2024",
+  },
+  {
+    icon: "🏆",
+    name: "Sekcja Pro Athlete",
+    result: "Medale Mistrzostw Wojewódzkich",
+    competition: "Kategorie U12 – U20 · Sezon 2024/2025",
+  },
+];
 ---
 
 <Layout>
   <!-- ─── HERO ─── -->
-  <section class="min-h-screen flex items-center justify-center relative overflow-hidden px-6 pt-30 pb-20">
-    <!-- Track lines background -->
-    <div class="absolute inset-0 opacity-[0.06]">
-      {Array.from({ length: 8 }).map((_, i) => (
-        <div
-          class="absolute left-0 right-0 h-px bg-brand-green"
-          style={`top: ${12 + i * 11}%`}
-        />
-      ))}
-    </div>
-
-    <!-- Glowing orb -->
-    <div
-      class="absolute top-[20%] right-[10%] w-[400px] h-[400px] rounded-full blur-[80px] animate-pulse-glow"
-      style="background: radial-gradient(circle, rgba(107, 240, 64, 0.3) 0%, transparent 70%);"
-    ></div>
-
-    <!-- Running track line animation -->
-    <div class="absolute bottom-[15%] left-0 right-0 h-0.5 overflow-hidden">
-      <div
-        class="w-[30%] h-full animate-track-line"
-        style="background: linear-gradient(90deg, transparent, #6BF040, transparent);"
-      ></div>
-    </div>
-
-    <!-- Hero content -->
-    <div class="text-center relative z-10 max-w-[800px] animate-slide-up">
-      <div class="animate-float mb-8">
-        <img
-          src="/images/logo.jpg"
-          alt="Logo Pro Athlete Grudziądz"
-          class="w-40 h-40 mx-auto rounded-xl object-cover shadow-lg shadow-brand-green/20"
-        />
+  <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+    <!-- Geometric Track Background -->
+    <div class="absolute inset-0 z-0">
+      <div class="absolute w-full h-full opacity-20">
+        <div class="absolute top-1/4 left-[-10%] w-[120%] h-[2px] track-line rotate-[-15deg]"></div>
+        <div class="absolute top-1/3 left-[-10%] w-[120%] h-[2px] track-line rotate-[-15deg]"></div>
+        <div class="absolute top-1/2 left-[-10%] w-[120%] h-[2px] track-line rotate-[-15deg]"></div>
+        <div class="absolute bottom-1/4 left-[-10%] w-[120%] h-[2px] track-line rotate-[-15deg]"></div>
       </div>
-
-      <div class="font-body text-xs font-semibold text-brand-green uppercase tracking-[6px] mb-4 animate-slide-up animate-delay-200">
-        Klub Lekkoatletyczny · Grudziądz
-      </div>
-
-      <h1 class="font-heading text-[clamp(36px,8vw,72px)] font-bold leading-[1.05] uppercase mb-6 animate-slide-up animate-delay-300">
-        Kształtujemy{" "}
-        <span class="text-brand-green" style="text-shadow: 0 0 40px rgba(107, 240, 64, 0.3);">
-          Mistrzów
+      <div class="absolute inset-0 bg-gradient-to-t from-brand-bg via-transparent to-brand-bg/50"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-brand-bg via-transparent to-brand-bg"></div>
+    </div>
+    <!-- Hero Background Image — bieżnia stadionowa -->
+    <div class="absolute inset-0 w-full h-full opacity-40 pointer-events-none">
+      <img
+        alt="Bieżnia lekkoatletyczna na stadionie nocą"
+        class="w-full h-full object-cover"
+        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBN3gWmdaOuc2zNNemO3tUxkU-rmCqD7UteBgoskhnt7lPbxzlQlYwmdo2rxFTuml07aFWZT9jVwwbPm7_ml5a1-4iH0Dwu9MkViILYT-eMxQgcmtGvjTf3VBsoh4fWO51L-x6_5mDsg8rUDBhOMySPppz3NqHhShDQFQNaEHIsWOuOE0aqxKH9IKY2D0Gh4Td53pm7ygstPAHpRi4O0NiCAtyDXwULQClZPs2W_YJLbDbgsUY3dOs9cWTeNLrFh158ORQFcPjEKmo"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-brand-bg via-transparent to-transparent"></div>
+    </div>
+    <!-- Hero Content -->
+    <div class="relative z-10 max-w-7xl mx-auto px-6 py-32 text-left w-full">
+      <div class="max-w-4xl">
+        <span class="inline-block py-1 px-3 mb-6 border border-brand-green text-brand-green text-xs font-bold uppercase tracking-[0.3em]">
+          Klub Lekkoatletyczny · Grudziądz
         </span>
-        <br />Jutra
-      </h1>
-
-      <p class="text-[clamp(15px,2vw,18px)] text-brand-muted leading-relaxed max-w-[560px] mx-auto mb-10 animate-slide-up animate-delay-400">
-        Szkolimy utalentowaną młodzież z Grudziądza. Od kategorii U12 po seniorów —
-        medale mistrzostw Polski, pasja i profesjonalizm na każdym treningu.
-      </p>
-
-      <div class="flex gap-4 justify-center flex-wrap animate-slide-up animate-delay-500">
-        <a href="#contact" class="cta-btn">Dołącz do klubu &rarr;</a>
-        <a href="#achievements" class="cta-btn-outline">Nasze osiągnięcia</a>
+        <h1 class="font-heading text-6xl md:text-8xl lg:text-9xl font-black italic uppercase tracking-tighter text-white leading-[0.85] mb-8 text-shadow-glow">
+          KSZTAŁTUJEMY <br /> <span class="text-brand-green">MISTRZÓW</span> <br /> JUTRA
+        </h1>
+        <p class="text-brand-muted text-lg md:text-xl max-w-2xl mb-12 font-medium leading-relaxed">
+          Szkolimy utalentowaną młodzież z Grudziądza. Od kategorii U12 po seniorów —
+          medale mistrzostw Polski, pasja i profesjonalizm na każdym treningu.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="#contact" class="cta-btn group">
+            DOŁĄCZ DO KLUBU
+            <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+          </a>
+          <a href="#achievements" class="cta-btn-outline text-center">
+            NASZE OSIĄGNIĘCIA
+          </a>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- ─── STATS BAR ─── -->
-  <section class="border-y border-brand-green/10 bg-brand-dark">
-    <div class="max-w-[960px] mx-auto grid grid-cols-2 md:grid-cols-4">
-      {stats.map((s) => (
-        <div class="stat-card">
-          <div class="font-heading text-[clamp(28px,4vw,42px)] font-bold text-brand-green leading-none counter-value" data-target={s.value}>
-            {s.value}
-          </div>
-          <div class="font-body text-xs text-brand-muted uppercase tracking-widest mt-2">
-            {s.label}
-          </div>
-        </div>
-      ))}
-    </div>
-  </section>
-
-  <!-- ─── ABOUT ─── -->
-  <section id="about" class="py-24 px-6 max-w-[960px] mx-auto">
-    <SectionTitle label="O nas" title="Młody klub, wielkie ambicje" />
-
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 animate-slide-up">
-      <div>
-        <p class="text-base leading-relaxed text-brand-muted mb-5">
-          <strong class="text-brand-text">Pro Athlete Grudziądz</strong> to młode stowarzyszenie
-          sportowe działające jako klub lekkoatletyczny. Powstaliśmy 17 marca 2024 roku z pasji do lekkiej
-          atletyki i wiary w potencjał grudziądzkiej młodzieży.
-        </p>
-        <p class="text-base leading-relaxed text-brand-muted">
-          Nasi zawodnicy regularnie zdobywają medale mistrzostw wojewódzkich, międzywojewódzkich
-          i odnoszą sukcesy na mistrzostwach Polski. Trenujemy systematycznie w kategoriach
-          od U12 po seniorów.
-        </p>
-      </div>
-
-      <div class="bg-brand-mid rounded-xl p-8 border border-brand-green/10">
-        <div class="font-heading text-xl font-semibold text-brand-green uppercase mb-5">
-          Szkolimy w dyscyplinach
-        </div>
-        {disciplines.map((d, i) => (
+  <section class="bg-[#0F140F] border-y border-brand-green/10 py-12">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-0">
+        {stats.map((s, i) => (
           <div class:list={[
-            "flex items-center gap-3 py-2.5",
-            i < disciplines.length - 1 && "border-b border-white/5"
+            "flex flex-col items-center justify-center text-center",
+            i < stats.length - 1 && "md:border-r border-white/5"
           ]}>
-            <div
-              class="w-2 h-2 rounded-full bg-brand-green shrink-0"
-              style="box-shadow: 0 0 8px rgba(107, 240, 64, 0.3);"
-            ></div>
-            <span class="text-[15px] text-brand-text">{d}</span>
+            <span
+              class="text-5xl md:text-6xl font-black italic text-brand-green glow-text mb-2 counter-value"
+              data-target={s.value}
+            >{s.value}</span>
+            <span class="text-brand-text uppercase tracking-widest text-sm font-bold">{s.label}</span>
           </div>
         ))}
       </div>
     </div>
   </section>
 
+  <!-- ─── ABOUT ─── -->
+  <section id="about" class="py-24 bg-brand-bg relative overflow-hidden">
+    <div class="absolute inset-0 bg-grid-pattern opacity-10 pointer-events-none"></div>
+    <div class="max-w-7xl mx-auto px-6 relative z-10">
+      <div class="mb-16">
+        <h2 class="font-heading text-4xl md:text-5xl font-black italic text-brand-text uppercase inline-block relative">
+          O KLUBIE
+          <span class="block h-1 w-24 bg-brand-green mt-4"></span>
+        </h2>
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+        <!-- Left Column: Story -->
+        <div class="space-y-8">
+          <div class="relative group">
+            <div class="absolute -inset-1 bg-gradient-to-r from-brand-green to-transparent opacity-20 blur-sm group-hover:opacity-30 transition duration-1000"></div>
+            <div class="relative p-1 bg-brand-mid">
+              <img
+                class="w-full h-[400px] object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                alt="Młodzi lekkoatleci na stadionie w Grudziądzu"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBv0-Sj4w4A3Gfkc70QeR4M5F_xa_dmOjKZI9kMg--vAQVqlJm7Agw8GIAAjoF6hLW-Dn7Ny33GJNB-v6wkpjwLXqEnpzJTJF9ynrHAIvywoSP9TZD71ljC8-N8kwy1QYkn3V19h3_TUulZWUelEWzEyPPMkXaP82KFwZcoW-ZnGy1itngolxfCq6w2Gw1j2dyyLshq6X_0pruFvf2sR85BK4koXM9BZcrdSdgEs4LVdrVaE-Bsovk2SXaKww4rTCLLn39RaKinoU8"
+              />
+            </div>
+          </div>
+          <p class="text-brand-text text-lg leading-relaxed md:pr-12">
+            <strong>Pro Athlete Grudziądz</strong> to młode stowarzyszenie
+            sportowe działające jako klub lekkoatletyczny. Powstaliśmy 17 marca 2024 roku z pasji do lekkiej
+            atletyki i wiary w potencjał grudziądzkiej młodzieży.
+          </p>
+          <p class="text-brand-muted text-lg leading-relaxed md:pr-12">
+            Nasi zawodnicy regularnie zdobywają medale mistrzostw wojewódzkich, międzywojewódzkich
+            i odnoszą sukcesy na mistrzostwach Polski. Trenujemy systematycznie w kategoriach
+            od U12 po seniorów.
+          </p>
+          <div class="pt-4">
+            <a class="inline-flex items-center gap-2 text-brand-green font-bold uppercase tracking-widest group no-underline" href="https://www.facebook.com/Proathletegrudziadz" target="_blank" rel="noopener noreferrer">
+              Poznaj naszą kadrę
+              <span class="material-symbols-outlined group-hover:translate-x-2 transition-transform">arrow_forward</span>
+            </a>
+          </div>
+        </div>
+        <!-- Right Column: Disciplines Card -->
+        <div class="bg-brand-mid border border-white/10 p-8 md:p-12 relative overflow-hidden group hover:border-brand-green/30 transition-colors">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-brand-green/5 rounded-full -mr-16 -mt-16 blur-2xl"></div>
+          <h3 class="font-heading text-2xl font-black italic tracking-tight text-brand-green mb-8 uppercase">NASZE KONKURENCJE</h3>
+          <ul class="space-y-6 list-none p-0 m-0">
+            {disciplines.map((d) => (
+              <li class="flex items-start gap-4">
+                <span class="material-symbols-outlined text-brand-green mt-1" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                <div>
+                  <h4 class="text-brand-text font-bold uppercase tracking-wide m-0">{d.name}</h4>
+                  <p class="text-brand-muted text-sm m-0">{d.detail}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+          <div class="mt-12 pt-8 border-t border-white/5">
+            <p class="text-xs text-brand-muted italic m-0">Trenujemy na Miejskim Stadionie Lekkoatletycznym w Grudziądzu.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ─── ACHIEVEMENTS ─── -->
   <section id="achievements" class="py-24 px-6" style="background: linear-gradient(180deg, #0A0A0A, #111111 50%, #0A0A0A);">
-    <div class="max-w-[960px] mx-auto">
-      <SectionTitle label="Sukcesy" title="Medaliści i wyróżnienia" />
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        <AchievementCard
-          icon="🥈"
-          name="Andrzej Rogiewicz"
-          result="2. miejsce Mistrzostw Polski"
-          competition="Lekkoatletyka · Stypendysta miasta Grudziądz"
-          delay="0.1s"
-        />
-        <AchievementCard
-          icon="🏅"
-          name="Krzysztof Mira"
-          result="Nagrodzony Działacz Sportowy"
-          competition="Gala Sportu · Grudziądz 2024"
-          delay="0.2s"
-        />
-        <AchievementCard
-          icon="🏆"
-          name="Sekcja Pro Athlete"
-          result="Medale Mistrzostw Wojewódzkich"
-          competition="Kategorie U12 – U20 · Sezon 2024/2025"
-          delay="0.3s"
-        />
+    <div class="max-w-7xl mx-auto">
+      <div class="mb-16 text-center">
+        <div class="font-body text-xs font-semibold text-brand-green uppercase tracking-[4px] mb-3">Sukcesy</div>
+        <h2 class="font-heading text-4xl md:text-5xl font-black italic text-brand-text uppercase">Medaliści i wyróżnienia</h2>
+        <div class="w-16 h-[3px] bg-brand-green mx-auto mt-4"></div>
       </div>
-
-      <div class="text-center mt-12 animate-slide-up animate-delay-500">
-        <p class="text-sm text-brand-muted italic max-w-[500px] mx-auto">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {achievements.map((a) => (
+          <div class="relative overflow-hidden bg-brand-mid border border-white/10 p-8 group hover:border-brand-green/40 transition-all">
+            <div class="absolute top-0 left-0 right-0 h-[3px] achievement-line"></div>
+            <div class="text-4xl mb-4">{a.icon}</div>
+            <div class="font-heading text-lg font-black italic text-brand-green uppercase mb-2">{a.name}</div>
+            <div class="text-brand-text font-bold mb-1">{a.result}</div>
+            <div class="text-brand-muted text-sm">{a.competition}</div>
+          </div>
+        ))}
+      </div>
+      <div class="text-center mt-12">
+        <p class="text-sm text-brand-muted italic max-w-lg mx-auto">
           Czołowe lokaty na Mistrzostwach Polski w kat. U18 · Medale międzywojewódzkie · Systematyczny rozwój zawodników
         </p>
       </div>
@@ -174,14 +200,16 @@ const stats = [
 
   <!-- ─── FACEBOOK / NEWS ─── -->
   <section id="news" class="py-24 px-6" style="background: linear-gradient(180deg, #0A0A0A 0%, #111111 50%, #0A0A0A 100%);">
-    <div class="max-w-[960px] mx-auto">
-      <SectionTitle label="Aktualności" title="Śledź nas na Facebooku" />
-
+    <div class="max-w-7xl mx-auto">
+      <div class="mb-16 text-center">
+        <div class="font-body text-xs font-semibold text-brand-green uppercase tracking-[4px] mb-3">Aktualności</div>
+        <h2 class="font-heading text-4xl md:text-5xl font-black italic text-brand-text uppercase">Śledź nas na Facebooku</h2>
+        <div class="w-16 h-[3px] bg-brand-green mx-auto mt-4"></div>
+      </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
         <!-- FB Page Plugin embed -->
-        <div class="bg-brand-mid rounded-xl overflow-hidden border border-brand-green/10 min-h-[500px] flex flex-col items-center justify-center p-6">
-          <div class="w-full rounded-lg overflow-hidden bg-brand-mid min-h-[460px] flex flex-col items-center">
-            <!-- FB header -->
+        <div class="bg-brand-mid overflow-hidden border border-white/10 min-h-[500px] flex flex-col items-center justify-center p-6">
+          <div class="w-full overflow-hidden bg-brand-mid min-h-[460px] flex flex-col items-center">
             <div class="w-full p-5 flex items-center gap-3" style="background: linear-gradient(135deg, #1877F2, #0D5BD9);">
               <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-xl font-bold text-[#1877F2]">f</div>
               <div>
@@ -189,7 +217,6 @@ const stats = [
                 <div class="text-xs text-white/70">@Proathletegrudziadz</div>
               </div>
             </div>
-            <!-- FB content placeholder -->
             <div class="p-5 w-full">
               <div id="fb-root"></div>
               <div
@@ -210,35 +237,32 @@ const stats = [
             </div>
           </div>
         </div>
-
         <!-- Side info -->
         <div class="flex flex-col gap-5">
-          <div class="bg-brand-mid rounded-xl p-7 border border-brand-green/10">
-            <div class="font-heading text-lg font-semibold text-brand-green uppercase mb-4">Dlaczego Facebook?</div>
+          <div class="bg-brand-mid p-7 border border-white/10">
+            <h3 class="font-heading text-lg font-black italic text-brand-green uppercase mb-4">Dlaczego Facebook?</h3>
             <p class="text-sm leading-relaxed text-brand-muted">
               Nasz fan-page to serce komunikacji klubu. Zdjęcia z zawodów,
               relacje z treningów, osiągnięcia zawodników — wszystko na bieżąco.
               Widget automatycznie wyświetla najnowsze posty.
             </p>
           </div>
-
           <a
             href="https://www.facebook.com/Proathletegrudziadz"
             target="_blank"
             rel="noopener noreferrer"
-            class="flex items-center gap-3 rounded-xl p-5 no-underline transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-[#1877F2]/30"
+            class="flex items-center gap-3 p-5 no-underline transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-[#1877F2]/30"
             style="background: linear-gradient(135deg, #1877F2, #0D5BD9);"
           >
-            <div class="w-12 h-12 rounded-xl bg-white/15 flex items-center justify-center text-2xl text-white font-bold">f</div>
+            <div class="w-12 h-12 bg-white/15 flex items-center justify-center text-2xl text-white font-bold">f</div>
             <div>
               <div class="font-bold text-base text-white">Odwiedź nasz fan-page</div>
               <div class="text-[13px] text-white/70">Zdjęcia · Filmy · Relacje na żywo</div>
             </div>
             <div class="ml-auto text-xl text-white">&rarr;</div>
           </a>
-
-          <div class="bg-brand-mid rounded-xl p-7 border border-brand-green/10">
-            <div class="font-heading text-lg font-semibold text-brand-green uppercase mb-4">Wesprzyj klub</div>
+          <div class="bg-brand-mid p-7 border border-white/10">
+            <h3 class="font-heading text-lg font-black italic text-brand-green uppercase mb-4">Wesprzyj klub</h3>
             <p class="text-sm leading-relaxed text-brand-muted mb-4">
               Pomagamy utalentowanej młodzieży rozwijać sportowe talenty.
               Każda pomoc się liczy — sprzęt, transport na zawody, obozy.
@@ -259,57 +283,54 @@ const stats = [
 
   <!-- ─── CONTACT / CTA ─── -->
   <section id="contact" class="py-24 px-6 relative">
-    <!-- Glow -->
     <div
       class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full blur-[100px] opacity-15"
       style="background: radial-gradient(circle, rgba(107, 240, 64, 0.3) 0%, transparent 70%);"
     ></div>
-
-    <div class="max-w-[700px] mx-auto text-center relative z-10">
-      <SectionTitle label="Dołącz" title="Rozpocznij swoją przygodę z lekkoatletyką" />
-
-      <p class="text-base leading-relaxed text-brand-muted mb-10">
+    <div class="max-w-3xl mx-auto text-center relative z-10">
+      <div class="mb-16">
+        <div class="font-body text-xs font-semibold text-brand-green uppercase tracking-[4px] mb-3">Dołącz</div>
+        <h2 class="font-heading text-4xl md:text-5xl font-black italic text-brand-text uppercase">Rozpocznij swoją przygodę z lekkoatletyką</h2>
+        <div class="w-16 h-[3px] bg-brand-green mx-auto mt-4"></div>
+      </div>
+      <p class="text-lg leading-relaxed text-brand-muted mb-10">
         Zapraszamy dzieci i młodzież na treningi lekkoatletyczne.
         Profesjonalne szkolenie, przyjazna atmosfera i droga do sportowych sukcesów.
         Skontaktuj się z nami!
       </p>
-
-      <div class="bg-brand-mid rounded-2xl p-10 border border-brand-green/15 mb-8">
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
+      <div class="bg-brand-mid border border-white/10 p-10 mb-8">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
           <div>
-            <div class="text-2xl mb-2">📍</div>
-            <div class="font-heading text-sm font-semibold text-brand-green uppercase tracking-wide mb-1">Lokalizacja</div>
+            <span class="material-symbols-outlined text-brand-green text-3xl mb-2" style="font-variation-settings: 'FILL' 1;">location_on</span>
+            <div class="font-heading text-sm font-bold text-brand-green uppercase tracking-wide mb-1">Lokalizacja</div>
             <div class="text-sm text-brand-muted">Grudziądz<br />woj. kujawsko-pomorskie</div>
           </div>
           <div>
-            <div class="text-2xl mb-2">👤</div>
-            <div class="font-heading text-sm font-semibold text-brand-green uppercase tracking-wide mb-1">Kontakt</div>
+            <span class="material-symbols-outlined text-brand-green text-3xl mb-2" style="font-variation-settings: 'FILL' 1;">person</span>
+            <div class="font-heading text-sm font-bold text-brand-green uppercase tracking-wide mb-1">Kontakt</div>
             <div class="text-sm text-brand-muted">Krzysztof Mira<br />Prezes Klubu</div>
           </div>
           <div>
-            <div class="text-2xl mb-2">🏃</div>
-            <div class="font-heading text-sm font-semibold text-brand-green uppercase tracking-wide mb-1">Kategorie</div>
+            <span class="material-symbols-outlined text-brand-green text-3xl mb-2" style="font-variation-settings: 'FILL' 1;">directions_run</span>
+            <div class="font-heading text-sm font-bold text-brand-green uppercase tracking-wide mb-1">Kategorie</div>
             <div class="text-sm text-brand-muted">U12 · U16 · U18<br />U20 · Seniorzy</div>
           </div>
         </div>
       </div>
-
-      <div class="flex gap-4 justify-center flex-wrap">
-        <a
-          href="https://www.facebook.com/Proathletegrudziadz"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="cta-btn"
-        >
-          Napisz do nas na Facebooku &rarr;
-        </a>
-      </div>
+      <a
+        href="https://www.facebook.com/Proathletegrudziadz"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="cta-btn"
+      >
+        Napisz do nas na Facebooku
+        <span class="material-symbols-outlined">arrow_forward</span>
+      </a>
     </div>
   </section>
 
   <!-- Facebook SDK -->
   <script is:inline>
-    // Facebook Page Plugin SDK (async)
     (function(d, s, id) {
       var js, fjs = d.getElementsByTagName(s)[0];
       if (d.getElementById(id)) return;
@@ -343,7 +364,6 @@ const stats = [
           }
         });
       }, { threshold: 0.3 });
-
       counters.forEach((c) => observer.observe(c));
     });
   </script>
