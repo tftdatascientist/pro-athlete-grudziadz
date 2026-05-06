@@ -1,0 +1,81 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const trener = {
+  imie: "Krzysztof Mira",
+  rola: "Prezes / Główny Trener",
+};
+
+const zawodnicy = [
+  { imie: "Agata Kruszewska", zdjecie: "/images/zawodnicy/agata-kruszewska.jpg" },
+  { imie: "Bartosz Miedzianowski", zdjecie: "/images/zawodnicy/bartosz-miedzianowski.jpg" },
+  { imie: "Julia Mikita", zdjecie: "/images/zawodnicy/julia-mikita.jpg" },
+  { imie: "Krzysztof Lachowski", zdjecie: "/images/zawodnicy/krzysztof-lachowski.jpg" },
+  { imie: "Krzysztof Riemer", zdjecie: "/images/zawodnicy/krzysztof-riemer.jpg" },
+  { imie: "Szymon Reetz", zdjecie: "/images/zawodnicy/szymon-reetz.jpg" },
+  { imie: "Wiktor Cerski", zdjecie: "/images/zawodnicy/wiktor-cerski.jpg" },
+];
+---
+
+<Layout
+  title="Zawodnicy — Pro Athlete Grudziądz"
+  description="Poznaj zawodników Klubu Sportowego Pro Athlete Grudziądz — utalentowaną młodzież trenującą lekką atletykę."
+>
+  <!-- Hero -->
+  <section class="pt-36 pb-16 px-6 max-w-7xl mx-auto">
+    <div class="mb-2">
+      <span class="text-brand-green font-body font-bold text-xs uppercase tracking-[4px]">Klub Sportowy</span>
+    </div>
+    <h1 class="font-heading font-black text-5xl md:text-7xl uppercase italic text-white leading-none mb-4">
+      Nasi<br /><span class="text-brand-green">Zawodnicy</span>
+    </h1>
+    <p class="text-brand-muted max-w-xl text-base leading-relaxed">
+      Poznaj sportowców Pro Athlete Grudziądz — ambitnych, zdeterminowanych i gotowych na każde wyzwanie.
+    </p>
+  </section>
+
+  <!-- Trener -->
+  <section class="px-6 pb-16 max-w-7xl mx-auto">
+    <div class="mb-8">
+      <span class="text-brand-green font-body font-bold text-xs uppercase tracking-[4px]">Sztab szkoleniowy</span>
+    </div>
+    <div class="inline-block">
+      <div class="relative overflow-hidden w-56 aspect-[3/4] bg-brand-mid flex items-end">
+        <div class="absolute inset-0 flex items-center justify-center">
+          <span class="material-symbols-outlined text-brand-green/20 text-[120px]">person</span>
+        </div>
+        <div class="relative p-4 w-full">
+          <div class="h-0.5 w-8 bg-brand-green mb-2"></div>
+          <p class="font-heading font-black uppercase text-white text-sm leading-tight">{trener.imie}</p>
+          <p class="text-brand-green text-xs font-body font-bold uppercase tracking-widest mt-1">{trener.rola}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Zawodnicy -->
+  <section class="px-6 pb-24 max-w-7xl mx-auto">
+    <div class="mb-8">
+      <span class="text-brand-green font-body font-bold text-xs uppercase tracking-[4px]">Sekcja lekkiej atletyki</span>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+      {zawodnicy.map((z) => (
+        <div class="group">
+          <div class="relative overflow-hidden aspect-[3/4] bg-brand-mid">
+            <img
+              src={z.zdjecie}
+              alt={`Zdjęcie ${z.imie}`}
+              class="w-full h-full object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105"
+              loading="lazy"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-brand-bg/90 via-brand-bg/10 to-transparent"></div>
+            <div class="absolute bottom-0 left-0 right-0 p-4">
+              <div class="h-0.5 w-6 bg-brand-green mb-2 transition-all duration-300 group-hover:w-10"></div>
+              <p class="font-heading font-black uppercase text-white text-sm leading-tight">{z.imie}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+</Layout>
