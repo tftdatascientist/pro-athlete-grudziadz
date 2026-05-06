@@ -4,6 +4,7 @@ import Layout from "../layouts/Layout.astro";
 const trener = {
   imie: "Krzysztof Mira",
   rola: "Prezes / Główny Trener",
+  zdjecie: "/images/zawodnicy/krzysztof-mira.jpg",
 };
 
 const zawodnicy = [
@@ -35,15 +36,18 @@ const zawodnicy = [
   </section>
 
   <!-- Trener -->
-  <section class="px-6 pb-16 max-w-7xl mx-auto">
+  <section class="px-6 pb-12 max-w-7xl mx-auto">
     <div class="mb-8">
       <span class="text-brand-green font-body font-bold text-xs uppercase tracking-[4px]">Sztab szkoleniowy</span>
     </div>
     <div class="inline-block">
       <div class="relative overflow-hidden w-56 aspect-[3/4] bg-brand-mid flex items-end">
-        <div class="absolute inset-0 flex items-center justify-center">
-          <span class="material-symbols-outlined text-brand-green/20 text-[120px]">person</span>
-        </div>
+        <img
+          src={trener.zdjecie}
+          alt={`Zdjęcie ${trener.imie}`}
+          class="absolute inset-0 w-full h-full object-cover object-top grayscale"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-brand-bg/90 via-brand-bg/10 to-transparent"></div>
         <div class="relative p-4 w-full">
           <div class="h-0.5 w-8 bg-brand-green mb-2"></div>
           <p class="font-heading font-black uppercase text-white text-sm leading-tight">{trener.imie}</p>
