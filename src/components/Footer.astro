@@ -1,0 +1,69 @@
+---
+import { club } from "../data/club";
+---
+
+<footer class="bg-brand-bg w-full pt-16 pb-8 px-6 border-t border-white/5">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
+
+      <div class="flex flex-col gap-3">
+        <a href="/" class="flex items-center gap-3 no-underline mb-1">
+          <img src="/images/logo.jpg" alt="Logo Pro Athlete Grudziądz" class="h-9 w-9 rounded object-cover" />
+          <span class="font-heading font-black text-lg text-brand-green italic tracking-tighter uppercase">{club.shortName}</span>
+        </a>
+        <p class="text-brand-muted text-sm leading-relaxed">
+          Klub Sportowy · Sekcja Lekkiej Atletyki<br />
+          Grudziądz, woj. kujawsko-pomorskie
+        </p>
+        <p class="text-brand-muted text-xs">
+          Założony: {new Date(club.foundedDate).toLocaleDateString('pl-PL', { year: 'numeric', month: 'long', day: 'numeric' })}
+        </p>
+      </div>
+
+      <div class="flex flex-col gap-3">
+        <h3 class="font-heading text-sm font-black italic uppercase tracking-widest text-brand-green mb-1">Kontakt</h3>
+        {club.address.street && (
+          <p class="text-brand-muted text-sm">
+            {club.address.street}<br />
+            {club.address.postalCode} {club.address.city}
+          </p>
+        )}
+        {club.contact.phone && (
+          <a href={`tel:${club.contact.phone}`} class="inline-flex items-center gap-2 text-brand-muted hover:text-brand-green transition-colors no-underline text-sm">
+            <span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;">phone</span>
+            {club.contact.phoneDisplay}
+          </a>
+        )}
+        {club.contact.email && (
+          <a href={`mailto:${club.contact.email}`} class="inline-flex items-center gap-2 text-brand-muted hover:text-brand-green transition-colors no-underline text-sm break-all">
+            <span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;">mail</span>
+            {club.contact.email}
+          </a>
+        )}
+      </div>
+
+      <div class="flex flex-col gap-3">
+        <h3 class="font-heading text-sm font-black italic uppercase tracking-widest text-brand-green mb-1">Linki</h3>
+        <a href={club.social.facebook} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-brand-muted hover:text-brand-green transition-colors no-underline text-sm">
+          <span class="material-symbols-outlined text-base">share</span>Facebook
+        </a>
+        <a href={club.fundraiser.url} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-brand-muted hover:text-brand-green transition-colors no-underline text-sm">
+          <span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;">favorite</span>Wesprzyj klub (Zrzutka.pl)
+        </a>
+        <a href={club.registry.ssm} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-brand-muted hover:text-brand-green transition-colors no-underline text-sm">
+          <span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;">verified</span>Klub w rejestrze SSM
+        </a>
+      </div>
+    </div>
+
+    <div class="pt-8 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center gap-4">
+      <p class="text-brand-muted text-xs text-center sm:text-left">
+        &copy; {new Date().getFullYear()} {club.legal.fullName}. Wszelkie prawa zastrzeżone.
+        {club.legal.nip && <span class="ml-2 opacity-50">NIP: {club.legal.nip}</span>}
+      </p>
+      <div class="flex gap-5">
+        <a href="/polityka-prywatnosci" class="text-xs text-brand-muted hover:text-brand-green transition-colors no-underline">Polityka prywatności</a>
+      </div>
+    </div>
+  </div>
+</footer>

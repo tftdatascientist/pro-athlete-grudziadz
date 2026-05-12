@@ -148,3 +148,36 @@ html {
 .animate-delay-300 { animation-delay: 0.3s; }
 .animate-delay-400 { animation-delay: 0.4s; }
 .animate-delay-500 { animation-delay: 0.5s; }
+
+/* ─── Trust signal chips (HERO) ─── */
+.trust-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border: 1px solid rgba(107, 240, 64, 0.3);
+  color: var(--color-brand-green);
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+/* ─── Mobile sticky CTA padding ─── */
+@media (max-width: 767px) {
+  body { padding-bottom: 66px; }
+}
+
+/* ─── Leaflet map dark theme ─── */
+.leaflet-container { background: #111111; }
+.leaflet-popup-content-wrapper {
+  background: #1A1A1A;
+  color: #E8E8E8;
+  border: 1px solid rgba(107, 240, 64, 0.2);
+  border-radius: 0;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+.leaflet-popup-tip { background: #1A1A1A; }
+.leaflet-popup-close-button { color: #6BF040 !important; }

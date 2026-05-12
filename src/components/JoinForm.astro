@@ -1,0 +1,159 @@
+---
+// Formularz zapisów — POST JSON do /api/zapis
+---
+
+<div id="join-form-wrap">
+  <form id="join-form" novalidate class="space-y-5" aria-label="Formularz zapisów do klubu">
+    <div aria-hidden="true" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">
+      <label for="website">Nie wypełniaj tego pola</label>
+      <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+      <div class="form-group">
+        <label for="imie_dziecka" class="form-label">Imię dziecka <span class="text-brand-green">*</span></label>
+        <input type="text" id="imie_dziecka" name="imie_dziecka" required minlength="2" maxlength="50" autocomplete="given-name" class="form-input" placeholder="np. Kacper" />
+        <span class="form-error" id="err-imie"></span>
+      </div>
+      <div class="form-group">
+        <label for="wiek_dziecka" class="form-label">Wiek dziecka <span class="text-brand-green">*</span></label>
+        <input type="number" id="wiek_dziecka" name="wiek_dziecka" required min="5" max="25" class="form-input" placeholder="np. 12" />
+        <span class="form-error" id="err-wiek"></span>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+      <div class="form-group">
+        <label for="telefon_rodzica" class="form-label">Telefon rodzica <span class="text-brand-green">*</span></label>
+        <input type="tel" id="telefon_rodzica" name="telefon_rodzica" required autocomplete="tel" class="form-input" placeholder="+48 600 000 000" />
+        <span class="form-error" id="err-tel"></span>
+      </div>
+      <div class="form-group">
+        <label for="email" class="form-label">Adres e-mail <span class="text-brand-green">*</span></label>
+        <input type="email" id="email" name="email" required autocomplete="email" class="form-input" placeholder="rodzic@example.com" />
+        <span class="form-error" id="err-email"></span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="skad_o_nas" class="form-label">Skąd dowiedzieliście się o klubie?</label>
+      <select id="skad_o_nas" name="skad_o_nas" class="form-input">
+        <option value="">— wybierz —</option>
+        <option value="Google">Google / wyszukiwarka</option>
+        <option value="Facebook">Facebook</option>
+        <option value="Polecenie">Polecenie znajomych</option>
+        <option value="Inne">Inne</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="wiadomosc" class="form-label">Wiadomość <span class="text-brand-muted text-xs">(opcjonalnie)</span></label>
+      <textarea id="wiadomosc" name="wiadomosc" maxlength="500" rows="3" class="form-input resize-none" placeholder="Pytania, uwagi, dyspozycje..."></textarea>
+    </div>
+
+    <div class="form-group">
+      <label class="flex items-start gap-3 cursor-pointer group">
+        <input type="checkbox" id="zgoda_rodo" name="zgoda_rodo" required class="mt-1 shrink-0 accent-brand-green w-4 h-4 cursor-pointer" />
+        <span class="text-sm text-brand-muted leading-relaxed group-has-[:checked]:text-brand-text transition-colors">
+          Wyrażam zgodę na przetwarzanie podanych danych osobowych przez Klub Sportowy „Pro Athlete" Grudziądz w celu kontaktu w sprawie zapisów na treningi.
+          <a href="/polityka-prywatnosci" class="text-brand-green hover:underline ml-1" target="_blank" rel="noopener">Polityka prywatności</a>
+          <span class="text-brand-green">*</span>
+        </span>
+      </label>
+      <span class="form-error" id="err-rodo"></span>
+    </div>
+
+    <div>
+      <button type="submit" id="join-submit" class="cta-btn w-full sm:w-auto">
+        <span id="btn-label">Wyślij zgłoszenie</span>
+        <svg id="btn-spinner" class="hidden animate-spin w-5 h-5 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" aria-hidden="true">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+        </svg>
+      </button>
+    </div>
+  </form>
+
+  <div id="form-success" class="hidden p-6 border border-brand-green/40 bg-brand-green/5 text-center">
+    <span class="material-symbols-outlined text-brand-green text-4xl mb-3 block" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+    <p class="text-brand-text font-bold text-lg mb-1">Dziękujemy za zgłoszenie!</p>
+    <p class="text-brand-muted text-sm">Skontaktujemy się z Wami w ciągu 24 godzin.</p>
+  </div>
+
+  <div id="form-error-box" class="hidden p-5 border border-red-500/40 bg-red-500/5">
+    <p class="text-red-400 text-sm mb-3" id="form-error-msg">Wystąpił błąd. Spróbuj ponownie.</p>
+    <button id="form-retry" class="cta-btn-outline !text-xs !py-2 !px-4">Spróbuj ponownie</button>
+  </div>
+</div>
+
+<style>
+  .form-label { display: block; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: #888888; margin-bottom: 6px; }
+  .form-input { width: 100%; background: #0A0A0A; border: 1px solid rgba(255,255,255,0.1); color: #E8E8E8; padding: 12px 16px; font-size: 14px; font-family: var(--font-body); transition: border-color 0.2s; outline: none; appearance: none; }
+  .form-input:focus { border-color: rgba(107, 240, 64, 0.5); }
+  .form-input.error { border-color: rgba(239, 68, 68, 0.6); }
+  .form-input option { background: #1A1A1A; }
+  .form-error { display: block; font-size: 11px; color: #f87171; margin-top: 4px; min-height: 16px; }
+</style>
+
+<script is:inline>
+  (function () {
+    var form = document.getElementById('join-form');
+    var submitBtn = document.getElementById('join-submit');
+    var btnLabel = document.getElementById('btn-label');
+    var btnSpinner = document.getElementById('btn-spinner');
+    var successBox = document.getElementById('form-success');
+    var errorBox = document.getElementById('form-error-box');
+    var errorMsg = document.getElementById('form-error-msg');
+    var retryBtn = document.getElementById('form-retry');
+
+    function setLoading(on) {
+      submitBtn.disabled = on;
+      btnLabel.textContent = on ? 'Wysyłanie…' : 'Wyślij zgłoszenie';
+      if (on) btnSpinner.classList.remove('hidden'); else btnSpinner.classList.add('hidden');
+    }
+    function showError(msg) { errorMsg.textContent = msg || 'Wystąpił błąd. Spróbuj ponownie.'; errorBox.classList.remove('hidden'); }
+    function clearFieldError(id) { var el = document.getElementById(id); if (el) el.textContent = ''; }
+    function setFieldError(inputId, errId, msg) {
+      var input = document.getElementById(inputId); var err = document.getElementById(errId);
+      if (input) input.classList.add('error'); if (err) err.textContent = msg;
+    }
+    function validateForm(data) {
+      var ok = true;
+      ['err-imie','err-wiek','err-tel','err-email','err-rodo'].forEach(clearFieldError);
+      document.querySelectorAll('.form-input').forEach(function(el) { el.classList.remove('error'); });
+      if (!data.imie_dziecka || data.imie_dziecka.trim().length < 2) { setFieldError('imie_dziecka', 'err-imie', 'Podaj imię dziecka (minimum 2 znaki).'); ok = false; }
+      var wiek = Number(data.wiek_dziecka);
+      if (!wiek || wiek < 5 || wiek > 25) { setFieldError('wiek_dziecka', 'err-wiek', 'Podaj wiek dziecka (5–25 lat).'); ok = false; }
+      var telClean = (data.telefon_rodzica || '').replace(/\s/g, '').replace(/^(\+48|0048)/, '');
+      if (!telClean || !/^\d{9}$/.test(telClean)) { setFieldError('telefon_rodzica', 'err-tel', 'Podaj poprawny numer telefonu (9 cyfr).'); ok = false; }
+      if (!data.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) { setFieldError('email', 'err-email', 'Podaj poprawny adres e-mail.'); ok = false; }
+      if (!data.zgoda_rodo) { setFieldError('zgoda_rodo', 'err-rodo', 'Wymagana zgoda na przetwarzanie danych.'); ok = false; }
+      return ok;
+    }
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      errorBox.classList.add('hidden');
+      var data = {
+        imie_dziecka: document.getElementById('imie_dziecka').value,
+        wiek_dziecka: document.getElementById('wiek_dziecka').value,
+        telefon_rodzica: document.getElementById('telefon_rodzica').value,
+        email: document.getElementById('email').value,
+        wiadomosc: document.getElementById('wiadomosc').value,
+        skad_o_nas: document.getElementById('skad_o_nas').value,
+        zgoda_rodo: document.getElementById('zgoda_rodo').checked,
+        website: document.getElementById('website') ? document.getElementById('website').value : '',
+      };
+      if (!validateForm(data)) return;
+      setLoading(true);
+      try {
+        var resp = await fetch('/api/zapis', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+        var json = await resp.json();
+        if (json.ok) { form.classList.add('hidden'); successBox.classList.remove('hidden'); }
+        else { showError(json.error || 'Błąd wysyłki. Spróbuj ponownie lub zadzwoń do nas.'); setLoading(false); }
+      } catch (err) { showError('Błąd połączenia. Sprawdź internet i spróbuj ponownie.'); setLoading(false); }
+    });
+
+    if (retryBtn) { retryBtn.addEventListener('click', function () { errorBox.classList.add('hidden'); setLoading(false); }); }
+  })();
+</script>

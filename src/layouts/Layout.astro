@@ -1,15 +1,53 @@
 ---
 import "../styles/global.css";
+import StickyMobileCTA from "../components/StickyMobileCTA.astro";
+import Footer from "../components/Footer.astro";
+import { club } from "../data/club";
 
 interface Props {
   title?: string;
   description?: string;
+  image?: string;
+  canonical?: string;
 }
 
 const {
   title = "Pro Athlete Grudziądz — Klub Lekkoatletyczny",
   description = "Młodzieżowy Klub Sportowy Pro Athlete Grudziądz. Szkolimy utalentowaną młodzież w lekkiej atletyce — biegi, skoki, rzuty, wieloboje. Dołącz do nas!",
+  image = "/images/logo.jpg",
+  canonical = Astro.url.href,
 } = Astro.props;
+
+const isHome = Astro.url.pathname === "/";
+const siteUrl = "https://proathlete.pl";
+const ogImageAbsolute = image.startsWith("http") ? image : `${siteUrl}${image}`;
+
+const schemaOrg = {
+  "@context": "https://schema.org",
+  "@type": "SportsOrganization",
+  name: club.name,
+  alternateName: club.shortName,
+  url: siteUrl,
+  logo: `${siteUrl}/images/logo.jpg`,
+  foundingDate: club.foundedDate,
+  sport: "Athletics",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: club.address.street,
+    postalCode: club.address.postalCode,
+    addressLocality: club.address.city,
+    addressRegion: club.address.region,
+    addressCountry: club.address.country,
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: club.address.geo.lat,
+    longitude: club.address.geo.lng,
+  },
+  telephone: club.contact.phone,
+  email: club.contact.email,
+  sameAs: [club.social.facebook, club.registry.ssm].filter(Boolean),
+};
 
 const navLinks = [
   { label: "O klubie", href: "/#about" },
@@ -26,7 +64,23 @@ const navLinks = [
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
+    <meta name="theme-color" content="#0A0A0A" />
+    <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pl_PL" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageAbsolute} />
+    <meta property="og:site_name" content="Pro Athlete Grudziądz" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageAbsolute} />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -37,27 +91,21 @@ const navLinks = [
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
       rel="stylesheet"
     />
+
+    {isHome && (
+      <script type="application/ld+json" set:html={JSON.stringify(schemaOrg)} />
+    )}
+
     <title>{title}</title>
   </head>
   <body class="bg-brand-bg text-brand-text font-body min-h-screen overflow-x-hidden antialiased selection:bg-brand-green selection:text-brand-bg">
-    <!-- ─── NAVBAR ─── -->
-    <header
-      id="navbar"
-      class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
-    >
+    <header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
       <nav class="flex items-center justify-between px-6 md:px-8 py-4 max-w-7xl mx-auto">
         <a href="#" class="flex items-center gap-3 no-underline">
-          <img
-            src="/images/logo.jpg"
-            alt="Logo Pro Athlete Grudziądz"
-            class="h-9 w-9 rounded object-cover"
-          />
-          <span class="font-heading font-black text-xl text-white italic tracking-tighter">
-            PRO ATHLETE
-          </span>
+          <img src="/images/logo.jpg" alt="Logo Pro Athlete Grudziądz" class="h-9 w-9 rounded object-cover" />
+          <span class="font-heading font-black text-xl text-white italic tracking-tighter">PRO ATHLETE</span>
         </a>
 
-        <!-- Desktop nav -->
         <div class="hidden md:flex items-center gap-8">
           {navLinks.map((l) => (
             <a href={l.href} class="nav-link">{l.label}</a>
@@ -65,12 +113,7 @@ const navLinks = [
           <a href="#contact" class="bg-brand-green text-brand-bg px-6 py-2 font-body font-bold uppercase tracking-widest text-xs no-underline hover:bg-white transition-all duration-300 active:scale-90">Dołącz do nas</a>
         </div>
 
-        <!-- Hamburger -->
-        <button
-          id="menu-toggle"
-          class="md:hidden flex flex-col gap-[5px] p-2 bg-transparent border-none cursor-pointer"
-          aria-label="Otwórz menu"
-        >
+        <button id="menu-toggle" class="md:hidden flex flex-col gap-[5px] p-2 bg-transparent border-none cursor-pointer" aria-label="Otwórz menu">
           <span class="block w-6 h-0.5 bg-brand-green transition-all"></span>
           <span class="block w-6 h-0.5 bg-brand-green transition-all"></span>
           <span class="block w-6 h-0.5 bg-brand-green transition-all"></span>
@@ -78,65 +121,20 @@ const navLinks = [
       </nav>
     </header>
 
-    <!-- Mobile menu -->
-    <div
-      id="mobile-menu"
-      class="fixed inset-0 z-[999] flex flex-col items-center justify-center gap-8 bg-brand-bg/[0.97] hidden"
-    >
+    <div id="mobile-menu" class="fixed inset-0 z-[999] flex flex-col items-center justify-center gap-8 bg-brand-bg/[0.97] hidden">
       {navLinks.map((l) => (
-        <a
-          href={l.href}
-          class="mobile-nav-link text-brand-text no-underline font-heading text-3xl font-black uppercase tracking-[3px] hover:text-brand-green transition-colors"
-        >{l.label}</a>
+        <a href={l.href} class="mobile-nav-link text-brand-text no-underline font-heading text-3xl font-black uppercase tracking-[3px] hover:text-brand-green transition-colors">{l.label}</a>
       ))}
-      <button
-        id="menu-close"
-        class="absolute top-6 right-6 bg-transparent border-none text-brand-green text-3xl cursor-pointer"
-        aria-label="Zamknij menu"
-      >&#10005;</button>
+      <button id="menu-close" class="absolute top-6 right-6 bg-transparent border-none text-brand-green text-3xl cursor-pointer" aria-label="Zamknij menu">&#10005;</button>
     </div>
 
     <slot />
 
-    <!-- ─── FOOTER ─── -->
-    <footer class="bg-brand-bg w-full py-12 px-6 border-t border-white/5">
-      <div class="max-w-7xl mx-auto">
-        <div class="flex flex-col md:flex-row justify-between items-center gap-8">
-          <div class="flex flex-col items-center md:items-start gap-2">
-            <div class="font-heading font-black italic text-lg text-brand-green uppercase tracking-tighter">
-              PRO ATHLETE GRUDZIĄDZ
-            </div>
-            <p class="text-brand-muted text-sm">
-              Klub Sportowy · Sekcja Lekkiej Atletyki · Grudziądz
-            </p>
-          </div>
-          <div class="flex flex-wrap justify-center gap-6">
-            <a class="text-sm font-medium tracking-wide text-brand-muted hover:text-brand-green transition-all no-underline" href="#">Polityka Prywatności</a>
-            <a class="text-sm font-medium tracking-wide text-brand-muted hover:text-brand-green transition-all no-underline" href="#">Regulamin Klubu</a>
-            <a class="text-sm font-medium tracking-wide text-brand-muted hover:text-brand-green transition-all no-underline" href="#">PZLA</a>
-          </div>
-          <div class="flex gap-4">
-            <a
-              class="w-10 h-10 flex items-center justify-center bg-brand-mid text-brand-green hover:bg-brand-green hover:text-brand-bg transition-all no-underline"
-              href="https://www.facebook.com/Proathletegrudziadz"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Facebook"
-            >
-              <span class="material-symbols-outlined">share</span>
-            </a>
-          </div>
-        </div>
-        <div class="mt-12 pt-8 border-t border-white/5 text-center">
-          <p class="text-brand-muted text-sm">
-            &copy; {new Date().getFullYear()} Pro Athlete Grudziądz. Wszelkie prawa zastrzeżone.
-          </p>
-        </div>
-      </div>
-    </footer>
+    <StickyMobileCTA />
+
+    <Footer />
 
     <script>
-      // Navbar scroll effect
       const navbar = document.getElementById("navbar");
       window.addEventListener("scroll", () => {
         if (!navbar) return;
@@ -153,21 +151,14 @@ const navLinks = [
         }
       }, { passive: true });
 
-      // Mobile menu
       const menuToggle = document.getElementById("menu-toggle");
       const menuClose = document.getElementById("menu-close");
       const mobileMenu = document.getElementById("mobile-menu");
 
-      menuToggle?.addEventListener("click", () => {
-        mobileMenu?.classList.remove("hidden");
-      });
-      menuClose?.addEventListener("click", () => {
-        mobileMenu?.classList.add("hidden");
-      });
+      menuToggle?.addEventListener("click", () => { mobileMenu?.classList.remove("hidden"); });
+      menuClose?.addEventListener("click", () => { mobileMenu?.classList.add("hidden"); });
       mobileMenu?.querySelectorAll(".mobile-nav-link").forEach((link) => {
-        link.addEventListener("click", () => {
-          mobileMenu?.classList.add("hidden");
-        });
+        link.addEventListener("click", () => { mobileMenu?.classList.add("hidden"); });
       });
     </script>
   </body>

@@ -1,0 +1,135 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { club } from "../data/club";
+---
+
+<Layout
+  title="Polityka Prywatności — Pro Athlete Grudziądz"
+  description="Polityka prywatności Klubu Sportowego Pro Athlete Grudziądz. Zasady przetwarzania danych osobowych zgodnie z RODO."
+  canonical="https://proathlete.pl/polityka-prywatnosci"
+>
+  <main class="pt-32 pb-24 px-6">
+    <div class="max-w-3xl mx-auto">
+      <div class="mb-12">
+        <a href="/" class="inline-flex items-center gap-2 text-brand-muted hover:text-brand-green transition-colors no-underline text-sm mb-8 block">
+          <span class="material-symbols-outlined text-base">arrow_back</span>
+          Powrót do strony głównej
+        </a>
+        <h1 class="font-heading text-4xl md:text-5xl font-black italic uppercase text-brand-text mb-4">
+          Polityka Prywatności
+        </h1>
+        <div class="w-16 h-[3px] bg-brand-green mb-6"></div>
+        <p class="text-brand-muted text-sm">Ostatnia aktualizacja: maj 2026</p>
+      </div>
+
+      <div class="prose-custom space-y-10">
+        <section>
+          <h2>1. Administrator danych osobowych</h2>
+          <p>
+            Administratorem Twoich danych osobowych jest <strong>{club.legal.fullName}</strong>,
+            z siedzibą pod adresem: {club.address.street}, {club.address.postalCode} {club.address.city}.
+          </p>
+          {club.contact.email && (
+            <p>
+              Kontakt w sprawach związanych z ochroną danych osobowych:
+              <a href={`mailto:${club.contact.email}`} class="text-brand-green hover:underline">{club.contact.email}</a>
+            </p>
+          )}
+        </section>
+
+        <section>
+          <h2>2. Cel i podstawa prawna przetwarzania danych</h2>
+          <p>
+            Dane osobowe podane w formularzu zapisów przetwarzamy wyłącznie w celu nawiązania kontaktu
+            w sprawie zapisu dziecka na treningi lekkoatletyczne organizowane przez klub.
+          </p>
+          <p>
+            Podstawa prawna: art. 6 ust. 1 lit. a RODO — zgoda osoby, której dane dotyczą.
+          </p>
+        </section>
+
+        <section>
+          <h2>3. Zakres przetwarzanych danych</h2>
+          <p>W ramach formularza zapisów przetwarzamy następujące dane:</p>
+          <ul>
+            <li>imię dziecka,</li>
+            <li>wiek dziecka,</li>
+            <li>numer telefonu rodzica/opiekuna,</li>
+            <li>adres e-mail rodzica/opiekuna,</li>
+            <li>treść wiadomości (jeśli podana),</li>
+            <li>informację o źródle, z którego dowiedzieliście się o klubie.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>4. Czas przechowywania danych</h2>
+          <p>
+            Dane przechowujemy przez okres 12 miesięcy od ostatniego kontaktu lub do momentu wycofania
+            zgody na przetwarzanie danych — w zależności od tego, co nastąpi wcześniej.
+          </p>
+        </section>
+
+        <section>
+          <h2>5. Odbiorcy danych</h2>
+          <p>
+            Twoje dane są przetwarzane wyłącznie przez klub i nie są udostępniane podmiotom trzecim
+            w celach marketingowych ani innych.
+          </p>
+          <p>W ramach realizacji usługi korzystamy z następujących dostawców technicznych:</p>
+          <ul>
+            <li><strong>Resend</strong> (Resend Inc., USA) — dostawca usługi wysyłki e-mail. Transfer danych do USA odbywa się na podstawie standardowych klauzul umownych.</li>
+            <li><strong>Cloudflare</strong> (Cloudflare Inc., USA/UE) — hosting strony i infrastruktura.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>6. Twoje prawa</h2>
+          <p>W związku z przetwarzaniem Twoich danych osobowych przysługują Ci następujące prawa:</p>
+          <ul>
+            <li><strong>prawo dostępu</strong> do swoich danych,</li>
+            <li><strong>prawo do sprostowania</strong> danych,</li>
+            <li><strong>prawo do usunięcia</strong> danych,</li>
+            <li><strong>prawo do ograniczenia przetwarzania</strong>,</li>
+            <li><strong>prawo do przenoszenia danych</strong>,</li>
+            <li><strong>prawo do sprzeciwu</strong>,</li>
+            <li><strong>prawo do wycofania zgody</strong> w dowolnym momencie,</li>
+            <li><strong>prawo do wniesienia skargi</strong> do Prezesa Urzędu Ochrony Danych Osobowych (PUODO), ul. Stawki 2, 00-193 Warszawa.</li>
+          </ul>
+          {club.contact.email && (
+            <p>
+              Aby skorzystać z powyższych praw, skontaktuj się z nami:
+              <a href={`mailto:${club.contact.email}`} class="text-brand-green hover:underline">{club.contact.email}</a>
+            </p>
+          )}
+        </section>
+
+        <section>
+          <h2>7. Pliki cookies i śledzenie</h2>
+          <p>
+            Strona <strong>nie używa</strong> plików cookies do śledzenia użytkowników,
+            remarketingu ani analityki. Strona jest skierowana do dzieci i młodzieży —
+            ich prywatność jest dla nas priorytetem.
+          </p>
+        </section>
+
+        <section>
+          <h2>8. Bezpieczeństwo danych</h2>
+          <p>
+            Stosujemy odpowiednie środki techniczne i organizacyjne w celu ochrony Twoich danych.
+            Przesyłanie danych odbywa się przez szyfrowane połączenie HTTPS.
+          </p>
+        </section>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .prose-custom h2 { font-family: var(--font-heading); font-size: 1.25rem; font-weight: 900; font-style: italic; text-transform: uppercase; color: #6BF040; margin-bottom: 0.75rem; letter-spacing: 0.05em; }
+  .prose-custom p { color: #888888; line-height: 1.8; margin-bottom: 0.75rem; }
+  .prose-custom ul { color: #888888; line-height: 1.8; padding-left: 1.5rem; list-style-type: disc; margin-bottom: 0.75rem; }
+  .prose-custom li { margin-bottom: 0.25rem; }
+  .prose-custom strong { color: #E8E8E8; font-weight: 700; }
+  .prose-custom section { padding-bottom: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .prose-custom section:last-child { border-bottom: none; }
+</style>

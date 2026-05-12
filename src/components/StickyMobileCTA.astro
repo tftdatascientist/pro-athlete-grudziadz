@@ -1,0 +1,66 @@
+---
+import { club } from "../data/club";
+---
+
+<div
+  id="sticky-cta"
+  class="fixed bottom-0 left-0 right-0 z-40 md:hidden opacity-0 translate-y-full transition-all duration-300"
+  style="background: rgba(10,10,10,0.97); border-top: 1px solid rgba(107,240,64,0.3); backdrop-filter: blur(8px);"
+  aria-hidden="true"
+>
+  <div class="flex items-center gap-3 px-4 py-3">
+    <a
+      href="#contact"
+      id="sticky-cta-btn"
+      class="flex-1 bg-brand-green text-brand-bg font-body font-bold uppercase tracking-widest text-sm text-center py-3 px-4 no-underline hover:bg-white transition-colors active:scale-95"
+    >
+      Zapisz dziecko na trening
+    </a>
+    {club.contact.phone && (
+      <a
+        href={`tel:${club.contact.phone}`}
+        class="w-12 h-12 shrink-0 flex items-center justify-center border border-brand-green/40 text-brand-green hover:bg-brand-green/10 transition-colors no-underline"
+        aria-label={`Zadzwoń: ${club.contact.phoneDisplay}`}
+      >
+        <span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">phone</span>
+      </a>
+    )}
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    var stickyCta = document.getElementById('sticky-cta');
+    var ctaBtn = document.getElementById('sticky-cta-btn');
+    if (!stickyCta) return;
+
+    var shown = false;
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (!entry.isIntersecting && !shown) {
+          shown = true;
+          stickyCta.style.opacity = '1';
+          stickyCta.style.transform = 'translateY(0)';
+          stickyCta.setAttribute('aria-hidden', 'false');
+        }
+        if (entry.isIntersecting) {
+          shown = false;
+          stickyCta.style.opacity = '0';
+          stickyCta.style.transform = 'translateY(100%)';
+          stickyCta.setAttribute('aria-hidden', 'true');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    var hero = document.querySelector('section');
+    if (hero) observer.observe(hero);
+
+    if (ctaBtn) {
+      ctaBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        var target = document.getElementById('contact');
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      });
+    }
+  })();
+</script>

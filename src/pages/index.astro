@@ -1,6 +1,8 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import "../styles/global.css";
+import { club } from "../data/club";
+import JoinForm from "../components/JoinForm.astro";
 
 const stats = [
   { value: "20+", label: "Zawodników" },
@@ -42,7 +44,6 @@ const achievements = [
 <Layout>
   <!-- ─── HERO ─── -->
   <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-    <!-- Geometric Track Background -->
     <div class="absolute inset-0 z-0">
       <div class="absolute w-full h-full opacity-20">
         <div class="absolute top-1/4 left-[-10%] w-[120%] h-[2px] track-line rotate-[-15deg]"></div>
@@ -53,7 +54,6 @@ const achievements = [
       <div class="absolute inset-0 bg-gradient-to-t from-brand-bg via-transparent to-brand-bg/50"></div>
       <div class="absolute inset-0 bg-gradient-to-r from-brand-bg via-transparent to-brand-bg"></div>
     </div>
-    <!-- Hero Background Image — bieżnia stadionowa -->
     <div class="absolute inset-0 w-full h-full opacity-40 pointer-events-none">
       <img
         alt="Bieżnia lekkoatletyczna na stadionie nocą"
@@ -62,7 +62,6 @@ const achievements = [
       />
       <div class="absolute inset-0 bg-gradient-to-t from-brand-bg via-transparent to-transparent"></div>
     </div>
-    <!-- Hero Content -->
     <div class="relative z-10 max-w-7xl mx-auto px-6 py-32 text-left w-full">
       <div class="max-w-4xl">
         <span class="inline-block py-1 px-3 mb-6 border border-brand-green text-brand-green text-xs font-bold uppercase tracking-[0.3em]">
@@ -84,6 +83,21 @@ const achievements = [
             NASZE OSIĄGNIĘCIA
           </a>
         </div>
+        <!-- Trust signals — Zestaw A -->
+        <div class="flex flex-col sm:flex-row gap-3 mt-6">
+          <span class="trust-chip">
+            <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+            Medaliści Mistrzostw Polski
+          </span>
+          <span class="trust-chip">
+            <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">group</span>
+            Od U12 do Seniorów
+          </span>
+          <span class="trust-chip">
+            <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">sports</span>
+            Sprinty · Skoki · Rzuty · Wieloboje
+          </span>
+        </div>
       </div>
     </div>
   </section>
@@ -93,14 +107,8 @@ const achievements = [
     <div class="max-w-7xl mx-auto px-6">
       <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-0">
         {stats.map((s, i) => (
-          <div class:list={[
-            "flex flex-col items-center justify-center text-center",
-            i < stats.length - 1 && "md:border-r border-white/5"
-          ]}>
-            <span
-              class="text-5xl md:text-6xl font-black italic text-brand-green glow-text mb-2 counter-value"
-              data-target={s.value}
-            >{s.value}</span>
+          <div class:list={["flex flex-col items-center justify-center text-center", i < stats.length - 1 && "md:border-r border-white/5"]}>
+            <span class="text-5xl md:text-6xl font-black italic text-brand-green glow-text mb-2 counter-value" data-target={s.value}>{s.value}</span>
             <span class="text-brand-text uppercase tracking-widest text-sm font-bold">{s.label}</span>
           </div>
         ))}
@@ -119,7 +127,6 @@ const achievements = [
         </h2>
       </div>
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-        <!-- Left Column: Story -->
         <div class="space-y-8">
           <div class="relative group">
             <div class="absolute -inset-1 bg-gradient-to-r from-brand-green to-transparent opacity-20 blur-sm group-hover:opacity-30 transition duration-1000"></div>
@@ -142,13 +149,12 @@ const achievements = [
             od U12 po seniorów.
           </p>
           <div class="pt-4">
-            <a class="inline-flex items-center gap-2 text-brand-green font-bold uppercase tracking-widest group no-underline" href="https://www.facebook.com/Proathletegrudziadz" target="_blank" rel="noopener noreferrer">
+            <a class="inline-flex items-center gap-2 text-brand-green font-bold uppercase tracking-widest group no-underline" href={club.social.facebook} target="_blank" rel="noopener noreferrer">
               Poznaj naszą kadrę
               <span class="material-symbols-outlined group-hover:translate-x-2 transition-transform">arrow_forward</span>
             </a>
           </div>
         </div>
-        <!-- Right Column: Disciplines Card -->
         <div class="bg-brand-mid border border-white/10 p-8 md:p-12 relative overflow-hidden group hover:border-brand-green/30 transition-colors">
           <div class="absolute top-0 right-0 w-32 h-32 bg-brand-green/5 rounded-full -mr-16 -mt-16 blur-2xl"></div>
           <h3 class="font-heading text-2xl font-black italic tracking-tight text-brand-green mb-8 uppercase">NASZE KONKURENCJE</h3>
@@ -207,7 +213,6 @@ const achievements = [
         <div class="w-16 h-[3px] bg-brand-green mx-auto mt-4"></div>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-        <!-- FB Page Plugin embed -->
         <div class="bg-brand-mid overflow-hidden border border-white/10 min-h-[500px] flex flex-col items-center justify-center p-6">
           <div class="w-full overflow-hidden bg-brand-mid min-h-[460px] flex flex-col items-center">
             <div class="w-full p-5 flex items-center gap-3" style="background: linear-gradient(135deg, #1877F2, #0D5BD9);">
@@ -219,41 +224,23 @@ const achievements = [
             </div>
             <div class="p-5 w-full">
               <div id="fb-root"></div>
-              <div
-                class="fb-page"
-                data-href="https://www.facebook.com/Proathletegrudziadz"
-                data-tabs="timeline"
-                data-width=""
-                data-height="400"
-                data-small-header="true"
-                data-adapt-container-width="true"
-                data-hide-cover="false"
-                data-show-facepile="false"
-              >
-                <blockquote cite="https://www.facebook.com/Proathletegrudziadz" class="fb-xfbml-parse-ignore">
-                  <a href="https://www.facebook.com/Proathletegrudziadz">Pro Athlete Grudziądz</a>
+              <div class="fb-page" data-href={club.social.facebook} data-tabs="timeline" data-width="" data-height="400" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false">
+                <blockquote cite={club.social.facebook} class="fb-xfbml-parse-ignore">
+                  <a href={club.social.facebook}>Pro Athlete Grudziądz</a>
                 </blockquote>
               </div>
             </div>
           </div>
         </div>
-        <!-- Side info -->
         <div class="flex flex-col gap-5">
           <div class="bg-brand-mid p-7 border border-white/10">
             <h3 class="font-heading text-lg font-black italic text-brand-green uppercase mb-4">Dlaczego Facebook?</h3>
             <p class="text-sm leading-relaxed text-brand-muted">
-              Nasz fan-page to serce komunikacji klubu. Zdjęcia z zawodów,
-              relacje z treningów, osiągnięcia zawodników — wszystko na bieżąco.
-              Widget automatycznie wyświetla najnowsze posty.
+              Nasz fan-page to serce komunikacji klubu. Zdjęcia z zawodów, relacje z treningów,
+              osiągnięcia zawodników — wszystko na bieżąco. Widget automatycznie wyświetla najnowsze posty.
             </p>
           </div>
-          <a
-            href="https://www.facebook.com/Proathletegrudziadz"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="flex items-center gap-3 p-5 no-underline transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-[#1877F2]/30"
-            style="background: linear-gradient(135deg, #1877F2, #0D5BD9);"
-          >
+          <a href={club.social.facebook} target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 p-5 no-underline transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-[#1877F2]/30" style="background: linear-gradient(135deg, #1877F2, #0D5BD9);">
             <div class="w-12 h-12 bg-white/15 flex items-center justify-center text-2xl text-white font-bold">f</div>
             <div>
               <div class="font-bold text-base text-white">Odwiedź nasz fan-page</div>
@@ -267,12 +254,7 @@ const achievements = [
               Pomagamy utalentowanej młodzieży rozwijać sportowe talenty.
               Każda pomoc się liczy — sprzęt, transport na zawody, obozy.
             </p>
-            <a
-              href="https://zrzutka.pl/en/n2eu4f"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="cta-btn-outline !text-[13px] !py-2.5 !px-5 w-full justify-center"
-            >
+            <a href={club.fundraiser.url} target="_blank" rel="noopener noreferrer" class="cta-btn-outline !text-[13px] !py-2.5 !px-5 w-full justify-center">
               Zrzutka.pl — Wesprzyj nas
             </a>
           </div>
@@ -283,53 +265,152 @@ const achievements = [
 
   <!-- ─── CONTACT / CTA ─── -->
   <section id="contact" class="py-24 px-6 relative">
-    <div
-      class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full blur-[100px] opacity-15"
-      style="background: radial-gradient(circle, rgba(107, 240, 64, 0.3) 0%, transparent 70%);"
-    ></div>
-    <div class="max-w-3xl mx-auto text-center relative z-10">
-      <div class="mb-16">
+    <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full blur-[100px] opacity-15" style="background: radial-gradient(circle, rgba(107, 240, 64, 0.3) 0%, transparent 70%);"></div>
+    <div class="max-w-5xl mx-auto relative z-10">
+      <div class="mb-16 text-center">
         <div class="font-body text-xs font-semibold text-brand-green uppercase tracking-[4px] mb-3">Dołącz</div>
         <h2 class="font-heading text-4xl md:text-5xl font-black italic text-brand-text uppercase">Rozpocznij swoją przygodę z lekkoatletyką</h2>
         <div class="w-16 h-[3px] bg-brand-green mx-auto mt-4"></div>
       </div>
-      <p class="text-lg leading-relaxed text-brand-muted mb-10">
+      <p class="text-lg leading-relaxed text-brand-muted mb-10 text-center max-w-2xl mx-auto">
         Zapraszamy dzieci i młodzież na treningi lekkoatletyczne.
         Profesjonalne szkolenie, przyjazna atmosfera i droga do sportowych sukcesów.
-        Skontaktuj się z nami!
       </p>
+
+      <!-- Siatka 3-kolumnowa -->
       <div class="bg-brand-mid border border-white/10 p-10 mb-8">
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
           <div>
             <span class="material-symbols-outlined text-brand-green text-3xl mb-2" style="font-variation-settings: 'FILL' 1;">location_on</span>
             <div class="font-heading text-sm font-bold text-brand-green uppercase tracking-wide mb-1">Lokalizacja</div>
-            <div class="text-sm text-brand-muted">Grudziądz<br />woj. kujawsko-pomorskie</div>
+            <div class="text-sm text-brand-muted">{club.address.city}<br />woj. {club.address.region}</div>
           </div>
           <div>
             <span class="material-symbols-outlined text-brand-green text-3xl mb-2" style="font-variation-settings: 'FILL' 1;">person</span>
             <div class="font-heading text-sm font-bold text-brand-green uppercase tracking-wide mb-1">Kontakt</div>
-            <div class="text-sm text-brand-muted">Krzysztof Mira<br />Prezes Klubu</div>
+            <div class="text-sm text-brand-muted">{club.contact.phoneOwner}<br />Prezes Klubu</div>
           </div>
           <div>
             <span class="material-symbols-outlined text-brand-green text-3xl mb-2" style="font-variation-settings: 'FILL' 1;">directions_run</span>
             <div class="font-heading text-sm font-bold text-brand-green uppercase tracking-wide mb-1">Kategorie</div>
-            <div class="text-sm text-brand-muted">U12 · U16 · U18<br />U20 · Seniorzy</div>
+            <div class="text-sm text-brand-muted">{club.ageCategories.slice(0,3).join(' · ')}<br />{club.ageCategories.slice(3).join(' · ')}</div>
           </div>
         </div>
       </div>
-      <a
-        href="https://www.facebook.com/Proathletegrudziadz"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="cta-btn"
-      >
-        Napisz do nas na Facebooku
-        <span class="material-symbols-outlined">arrow_forward</span>
-      </a>
+
+      <!-- Kanały kontaktu -->
+      <div class="bg-brand-mid border border-white/10 p-8 mb-8">
+        <h3 class="font-heading text-xl font-black italic text-brand-green uppercase mb-6 text-center">Skontaktuj się z nami</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {club.contact.phone && (
+            <a href={`tel:${club.contact.phone}`} class="group flex items-center gap-4 p-4 bg-brand-bg border border-white/10 hover:border-brand-green/50 hover:bg-brand-green/5 transition-all no-underline">
+              <span class="material-symbols-outlined text-brand-green text-2xl shrink-0" style="font-variation-settings: 'FILL' 1;">phone</span>
+              <div>
+                <div class="text-xs text-brand-muted uppercase tracking-widest mb-0.5">Telefon</div>
+                <div class="text-brand-text font-bold group-hover:text-brand-green transition-colors">{club.contact.phoneDisplay}</div>
+              </div>
+            </a>
+          )}
+          {club.contact.email && (
+            <a href={`mailto:${club.contact.email}`} class="group flex items-center gap-4 p-4 bg-brand-bg border border-white/10 hover:border-brand-green/50 hover:bg-brand-green/5 transition-all no-underline">
+              <span class="material-symbols-outlined text-brand-green text-2xl shrink-0" style="font-variation-settings: 'FILL' 1;">mail</span>
+              <div>
+                <div class="text-xs text-brand-muted uppercase tracking-widest mb-0.5">E-mail</div>
+                <div class="text-brand-text font-bold group-hover:text-brand-green transition-colors break-all">{club.contact.email}</div>
+              </div>
+            </a>
+          )}
+          {club.contact.whatsapp && (
+            <a href={`https://wa.me/${club.contact.whatsapp}`} target="_blank" rel="noopener noreferrer" class="group flex items-center gap-4 p-4 bg-brand-bg border border-white/10 hover:border-brand-green/50 hover:bg-brand-green/5 transition-all no-underline">
+              <svg class="text-brand-green shrink-0" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+              </svg>
+              <div>
+                <div class="text-xs text-brand-muted uppercase tracking-widest mb-0.5">WhatsApp</div>
+                <div class="text-brand-text font-bold group-hover:text-brand-green transition-colors">{club.contact.phoneDisplay}</div>
+              </div>
+            </a>
+          )}
+          {club.contact.messenger && (
+            <a href={club.contact.messenger} target="_blank" rel="noopener noreferrer" class="group flex items-center gap-4 p-4 bg-brand-bg border border-white/10 hover:border-brand-green/50 hover:bg-brand-green/5 transition-all no-underline">
+              <svg class="text-brand-green shrink-0" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 0C5.373 0 0 4.974 0 11.111c0 3.498 1.744 6.614 4.469 8.654V24l4.088-2.242c1.092.3 2.246.464 3.443.464 6.627 0 12-4.975 12-11.111S18.627 0 12 0zm1.191 14.963l-3.055-3.26-5.963 3.26L10.732 8l3.131 3.259L19.752 8l-6.561 6.963z"/>
+              </svg>
+              <div>
+                <div class="text-xs text-brand-muted uppercase tracking-widest mb-0.5">Messenger</div>
+                <div class="text-brand-text font-bold group-hover:text-brand-green transition-colors">Pro Athlete Grudziądz</div>
+              </div>
+            </a>
+          )}
+        </div>
+      </div>
+
+      <!-- Formularz zapisów -->
+      <div class="bg-brand-mid border border-white/10 p-8 mb-8">
+        <h3 class="font-heading text-xl font-black italic text-brand-green uppercase mb-6 text-center">Formularz zapisów</h3>
+        <JoinForm />
+      </div>
+
+      <!-- Mapa Leaflet -->
+      <div class="mb-8">
+        <div id="map" class="w-full border border-white/10" style="height: 320px;" aria-label="Mapa lokalizacji klubu Pro Athlete Grudziądz"></div>
+        <div class="flex justify-center mt-3">
+          <a href={club.address.googleMapsUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm text-brand-muted hover:text-brand-green transition-colors no-underline">
+            <span class="material-symbols-outlined text-base">open_in_new</span>
+            Otwórz w Google Maps
+          </a>
+        </div>
+      </div>
+
+      <div class="text-center">
+        <a href={club.social.facebook} target="_blank" rel="noopener noreferrer" class="cta-btn-outline">
+          Napisz do nas na Facebooku
+          <span class="material-symbols-outlined">arrow_forward</span>
+        </a>
+      </div>
     </div>
   </section>
 
-  <!-- Facebook SDK -->
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+  <script is:inline>
+    (function() {
+      function initMap() {
+        if (!window.L) return;
+        var lat = 53.4697953;
+        var lng = 18.7722158;
+        var map = L.map('map', { scrollWheelZoom: false, zoomControl: true }).setView([lat, lng], 15);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+          maxZoom: 19
+        }).addTo(map);
+        var icon = L.divIcon({
+          className: '',
+          html: '<div style="width:24px;height:24px;background:#6BF040;border-radius:50%;border:3px solid #0A0A0A;box-shadow:0 0 12px rgba(107,240,64,0.7);"></div>',
+          iconSize: [24, 24],
+          iconAnchor: [12, 12],
+        });
+        L.marker([lat, lng], { icon: icon })
+          .addTo(map)
+          .bindPopup('<strong style="font-family:sans-serif;font-size:13px">Pro Athlete Grudziądz</strong><br><span style="font-size:12px;color:#666">ul. Kustronia 2/16</span>')
+          .openPopup();
+      }
+      function loadLeaflet() {
+        var s = document.createElement('script');
+        s.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+        s.crossOrigin = '';
+        s.onload = initMap;
+        document.head.appendChild(s);
+      }
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', loadLeaflet);
+      } else {
+        loadLeaflet();
+      }
+    })();
+  </script>
+
+  <!-- Facebook SDK + counters -->
   <script is:inline>
     (function(d, s, id) {
       var js, fjs = d.getElementsByTagName(s)[0];
@@ -339,7 +420,6 @@ const achievements = [
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
 
-    // Animated counters with IntersectionObserver
     document.addEventListener("DOMContentLoaded", () => {
       const counters = document.querySelectorAll(".counter-value");
       const observer = new IntersectionObserver((entries) => {
